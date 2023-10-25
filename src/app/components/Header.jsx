@@ -1,11 +1,12 @@
 "use client"
 
+import Link from "next/link";
 import { useState } from "react";
 
 export default function Header() {
     const Links = [
         { name: "HOME", link: "/" },
-        { name: "CREATE YOUR PLAN", link: "/" },
+        { name: "CREATE YOUR PLAN", link: "/create-your-plan" },
     ];
     const [open, setOpen] = useState(false);
 
@@ -24,7 +25,7 @@ export default function Header() {
                     {
                         Links.map((link) => (
                             <li className='md:ml-8 md:my-0 my-7 font-semibold' key={link.name}>
-                                <a href={link.link} className='text-gray-800 hover:text-white duration-500'>{link.name}</a>
+                                <Link href={link.link} className='text-gray-800 hover:text-white duration-500'>{link.name}</Link>
                             </li>))
                     }
                 </ul>

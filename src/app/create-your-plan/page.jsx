@@ -1,7 +1,8 @@
+import Link from "next/link";
 import Button from "../components/Button";
 import Input from "../components/Input";
 
-export default function page(){
+export default function CreateYourPlan(){
     return(
         <main className="flex justify-center mt-16 w-full h-auto">
             <div className="w-3/4 md:w-1/4 justify-center">
@@ -32,7 +33,9 @@ export default function page(){
                     </div>
 
                     <div className="mt-16">
-                        <Button text="Continue"/>
+                        <Link href={'/result'}>
+                            <Button text="Continue"/>                       
+                        </Link>
                     </div>
                 </section>
             </div>

@@ -1,32 +1,40 @@
 "use client"
-import React from 'react';
-import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
+import React from "react";
+import { Document, Page, Text, View, Image} from "@react-pdf/renderer";
 
-export default function MyPDF() {
+export default function MyPdf({ recipe }) {
     return (
-        <Document>
-            <Page size="A4" style={styles.page} pageMode='fullScreen'>
-                <View style={styles.section}>
-                    <Text>Contenido del PDF</Text>
-                </View>
-            </Page>
-        </Document>
+            <Document>
+                <Page
+                    size="A4"
+                    style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        backgroundColor: "white",
+                    }}
+                >
+                    <View
+                        style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            backgroundColor: "white",
+                            padding: 10,
+                        }}
+                    >
+                        <Text style={{ color: "#3388af", fontSize: "42px" }}>
+                            Recipe with 
+                        </Text>
+                        <Text>{recipe ? recipe.proteins + "gr" + " " + recipe.fats + "gr" + " " + recipe.carbs + "gr" : null}</Text>                        
+
+                        <Text style={{ textAlign: "justify", marginTop: "22px" }}>
+                            {recipe ? recipe.result : null}
+                        </Text>
+                    </View>
+                </Page>
+            </Document>
     );
 };
-
-const styles = StyleSheet.create({
-    text: {
-        fontSize: 14,
-    },
-    page: {
-        flexDirection: 'column',
-        margin: 5,
-        backgroundColor: '#E4E4E4',
-    },
-    section: {
-        margin: 5,
-        padding: 5,
-        flexGrow: 1,
-        width: '100%'
-    },
-});

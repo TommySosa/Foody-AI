@@ -13,27 +13,35 @@ const handler = NextAuth({
       async authorize(credentials) {
 
         try {
-            const res = await fetch(`http://localhost:3000/api/auth/login`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    email: [credentials.email],
-                    password: [credentials.password]
-                })
-            });
-            const userFound = res.data.user
+          const res = await fetch(`http://localhost:3000/api/auth/login`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: credentials.email,
+              password: credentials.password
+            })
+          });
+
+          if (res.status == 401) {
+            throw new Error('Invalid credentials.')
+          }
+          if (res.status == 400) {
+            throw new Error('Email and password are required.')
+          }
+          const resJSON = await res.json()
+          const userFound = await resJSON
 
           return userFound;
         } catch (error) {
           throw error;
-        } 
+        }
       },
     }),
   ],
   pages: {
-    signIn: "/auth/login",
+    signIn: "/login",
   },
   session: {
     strategy: "jwt",

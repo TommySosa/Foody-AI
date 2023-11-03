@@ -27,8 +27,8 @@ export async function POST(req) {
             carbs,
             result,
             userId
-        }
-        )
+        })
+        
         const newRecipe = res.data;
         return NextResponse.json({
             ...newRecipe

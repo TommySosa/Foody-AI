@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from "react";
 import Input from "../components/Input";
 import Button from "../components/Button";
@@ -8,7 +8,6 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 
-
 function Login() {
   const router = useRouter();
   const {
@@ -16,8 +15,7 @@ function Login() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [error, setError] = useState(null)
-
+  const [error, setError] = useState(null);
 
   const onSubmit = handleSubmit(async (data) => {
     const res = await signIn("credentials", {
@@ -27,46 +25,63 @@ function Login() {
     });
 
     if (res.error) {
-      setError(res.error)
+      setError(res.error);
     } else {
-      router.push('/')
-      router.refresh()
+      router.push("/");
+      router.refresh();
     }
-
   });
 
+  const handleGoogleLogin = async () => {
+    const res = await signIn("google", {
+      callbackUrl: `${window.location.origin}/`,
+    });
+  };
 
   return (
     <div className="flex flex-col items-center h-screen">
-      <form className="bg-white shadow-md rounded p-4 sm:p-8 w-full max-w-md mt-16" onSubmit={onSubmit}>
+      <form
+        className="bg-white shadow-md rounded p-4 sm:p-8 w-full max-w-md mt-16"
+        onSubmit={onSubmit}
+      >
         <h2 className="text-2xl text-center font-bold mb-8">
           Nice to see you!
         </h2>
         {error && (
-          <p className="bg-red-500 text-lg text-white p-3 rounded mb-2">{error}</p>
+          <p className="bg-red-500 text-lg text-white p-3 rounded mb-2">
+            {error}
+          </p>
         )}
         <div className="mb-4">
-          <input className="bg-gray-200 rounded-lg py-2 px-4 block w-full  sm:w-full" type="email"
+          <input
+            className="bg-gray-200 rounded-lg py-2 px-4 block w-full  sm:w-full"
+            type="email"
             {...register("email", {
               required: {
                 value: true,
                 message: "Email is required",
               },
             })}
-            name="email" placeholder="example@gmail.com" />
+            name="email"
+            placeholder="example@gmail.com"
+          />
           {/* <Input placeholder="Email" name="email"/> */}
           {errors.email && (
             <span className="text-red-500 text-xs">{errors.email.message}</span>
           )}
         </div>
         <div className="mb-4">
-          <input className="bg-gray-200 rounded-lg py-2 px-4 block w-full  sm:w-full" type="password" name="password"
+          <input
+            className="bg-gray-200 rounded-lg py-2 px-4 block w-full  sm:w-full"
+            type="password"
+            name="password"
             {...register("password", {
               required: {
                 value: true,
                 message: "Password is required",
               },
-            })} />
+            })}
+          />
           {errors.password && (
             <span className="text-red-500 text-xs">
               {errors.password.message}
@@ -76,11 +91,12 @@ function Login() {
         <div className="mb-4">
           <Button text="Continue" type="submit" />
         </div>
-        <p className="text-gray-500 mb-4 text-center">
-          Or
-        </p>
+        <p className="text-gray-500 mb-4 text-center">Or</p>
         <div className="mb-4">
-          <button className="bg-white border border-gray-300 hover:bg-blue-700 hover:text-white text-gray-800 font-bold py-2 px-4 rounded w-full flex items-center justify-center">
+          <button
+            onClick={handleGoogleLogin}
+            className="bg-white border border-gray-300 hover:bg-blue-700 hover:text-white text-gray-800 font-bold py-2 px-4 rounded w-full flex items-center justify-center"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               x="0px"
@@ -133,9 +149,13 @@ function Login() {
         </div>
         <p className="text-xs text-gray-600 text-center mt-8">
           If you are creating a new account, please
-          <Link href="/register" className="text-blue-500 hover:underline ml-1">Register Here</Link>
+          <Link href="/register" className="text-blue-500 hover:underline ml-1">
+            Register Here
+          </Link>
           . If you forgot your password, you can
-          <Link href="/" className="text-blue-500 hover:underline ml-1">Reset it here</Link>
+          <Link href="/" className="text-blue-500 hover:underline ml-1">
+            Reset it here
+          </Link>
           .
         </p>
       </form>

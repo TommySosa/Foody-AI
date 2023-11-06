@@ -16,19 +16,19 @@ function Register() {
   const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = handleSubmit(async (data) => {
-    setIsLoading(true); // Muestra el loader
+    setIsLoading(true); 
 
     if (data.password !== data.repeatPassword) {
       setError("Las contraseñas no coinciden");
-      setIsLoading(false); // Oculta el loader
+      setIsLoading(false); 
     } else {
       const gender = data.gender;
 
-      // Simula un retraso de 2 segundos para la demostración (reemplaza con tu lógica real)
+      
       setTimeout(() => {
         console.log("Datos del formulario:", data);
         console.log("Género seleccionado:", gender);
-        setIsLoading(false); // Oculta el loader después de procesar los datos
+        setIsLoading(false); 
       }, 2000);
     }
   });
